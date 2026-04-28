@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.db import get_db, init_db, Room
@@ -15,6 +16,12 @@ class RoomCreate(BaseModel):
     room_number: int
     room_type: str | None = None
     price: float | None = None
+
+
+@app.get("/")
+def default_endpoint(db: Session = Depends(get_db)):
+    result = db.execute(text("SELECT version()"))
+    return { "version": result.scalar(), "endpoints": "rooms/" }
 
 
 @app.post("/rooms")
