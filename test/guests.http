@@ -1,0 +1,20 @@
+@baseUrl = {{$dotenv API_URL}}
+
+### Create guest
+POST {{baseUrl}}/guests
+Content-Type: application/json
+
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "address": "Helsinki"
+}
+
+### Get all guests
+GET {{baseUrl}}/guests
+
+### Get one guest
+GET {{baseUrl}}/guests/1
+
+### Delete guest
+DELETE {{baseUrl}}/guests/1
