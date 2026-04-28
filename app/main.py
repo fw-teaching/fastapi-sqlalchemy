@@ -14,8 +14,8 @@ def startup():
 # Pydantic schema for POST
 class RoomCreate(BaseModel):
     room_number: int
-    room_type: str | None = None
-    price: float | None = None
+    room_type: str
+    price: float
 
 
 @app.get("/")
@@ -32,7 +32,6 @@ def create_room(payload: RoomCreate, db: Session = Depends(get_db)):
         room_type=payload.room_type,
         price=payload.price
     )
-
     # If we have the same field names, we could also just do:
     #room = Room(**payload.model_dump())
 
